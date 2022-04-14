@@ -41,10 +41,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   qrcode: {
-    borderWidth: 1,
-    borderColor: '#000',
-    height: 30,
-    width: 30,
+    height: 35,
+    width: 35,
   },
   arrowContainer: {
     left: 20,
