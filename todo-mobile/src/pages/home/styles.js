@@ -24,6 +24,23 @@ const style = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     opacity: 0.4
+  },
+  scroll: {
+    width: '90%'
+  },
+  taskTitleArea: {
+    alignItems: 'center',
+    borderBottomColor: '#2A5AF2',
+    borderBottomWidth: 2,
+    width: '100%',
+  },
+  taskTitle: {
+    backgroundColor: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingHorizontal: 5,
+    position: 'relative',
+    top: 10,
   }
 });
 
