@@ -2,13 +2,12 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 import style from './styles';
+import Header from '../../components/header';
 
 export default function Home() {
   return (
     <View style={ style.container }>
-      <Text>
-        Primeira página com react native.
-      </Text>
+      <Header showNotification={ true } showBack={ false } />
     </View>
   );
 };
