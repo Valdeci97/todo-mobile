@@ -14,4 +14,13 @@ const getTasks = async (filter) => {
   }
 };
 
-export { getTasks };
+const getLateTasks = async () => {
+  try {
+    const { data } = await api.get('/filter/late/11:11:11:11:11:11');
+    return data.length;
+  } catch (err) {
+    return { error: err.response.data.error };
+  }
+}
+
+export { getTasks, getLateTasks };

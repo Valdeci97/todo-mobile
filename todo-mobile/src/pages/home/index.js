@@ -27,9 +27,11 @@ export default function Home() {
     );
   }, [isActive])
 
+  const bellHandler = () => setIsActive('late');
+
   return (
     <View style={ style.container }>
-      <Header showNotification={ true } showBack={ false } />
+      <Header showNotification={ true } showBack={ false } bellClick={ bellHandler } />
       <View style={ style.filter }>
         {
           options.map((option, index) =>
@@ -42,7 +44,7 @@ export default function Home() {
         }
       </View>
       <View style={ style.taskTitleArea }>
-        <Text style={ style.taskTitle } >Tarefas</Text>
+        <Text style={ style.taskTitle } >Tarefas { isActive === 'late' && 'Atrasadas' }</Text>
       </View>
       <ScrollView style={ style.scroll } contentContainerStyle={ { alignItems: 'center' } }>
         {
