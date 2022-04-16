@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#99AAEA',
     borderTopColor: '#25040c',
-    borderTopWidth: 5,
+    borderTopWidth: 2,
     bottom: 0,
     height: 70,
     position: 'absolute',
@@ -13,17 +13,19 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'relative',
-    top: -70,
+    top: -30,
+    backgroundColor: '#EEE',
+    borderRadius: 100,
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 60,
+    width: 60,
   },
   text: {
     fontSize: 16,
     fontWeight: 'bold',
     position: 'relative',
-    top: -40,
+    top: -25,
   }
 });
 
