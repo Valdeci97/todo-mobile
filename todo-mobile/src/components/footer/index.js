@@ -6,12 +6,17 @@ import save from '../../assets/save-task-icon.png';
 import styles from './styles';
 import redirect from '../../utils/redirect';
 
-export default function Footer({ showSave, navigation }) {
+export default function Footer({ showSave, navigation, saveTask }) {
+  const pathAnalyzer = (func, path) => {
+    if (showSave === 'save') return saveTask();
+    redirect(func, path);
+  }
+
   return (
     <View style={ styles.container }>
       <TouchableOpacity
         style={ styles.button }
-        onPress={() => redirect(navigation, 'Task')}
+        onPress={() => pathAnalyzer(navigation, 'Task')}
       >
         <Image source={ showSave === 'save' ? save : add } style={ styles.image } />
       </TouchableOpacity>

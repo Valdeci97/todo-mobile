@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Switch,
+  Alert,
 } from 'react-native';
 
 import Header from '../../components/header';
@@ -15,9 +16,27 @@ import Footer from '../../components/footer';
 import styles from './styles';
 import typeIcons from '../../utils/typeIcons';
 import DateInput from '../../components/dateTime';
+import validateTask from '../../utils/validateTask';
+import { createTask } from '../../services';
+import redirect from '../../utils/redirect';
 
 export default function Task({ navigation }) {
   const [done, setDone] = useState(false);
+  const [type, setType] = useState(0);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [hour, setHour] = useState('');
+  const [macaddress, setMacaddress] = useState('11:11:11:11:11:11');
+
+  const saveTask = async () => {
+    const task = { macaddress, type, title, description, date, hour }
+    const result = validateTask(task);
+    if (result.message) { return Alert.alert(result.message); }
+    const { error } = await createTask(task);
+    if (error) { return Alert.alert(error); }
+    redirect(navigation, 'Home');
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -25,23 +44,30 @@ export default function Task({ navigation }) {
         <ScrollView style={{ width: '100%' }}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {typeIcons.map((icon, index) => icon &&
-              <TouchableOpacity key={index}>
-                <Image source={icon} style={styles.icon} />
+              <TouchableOpacity key={index} onPress={() => setType(index)}>
+                <Image source={icon} style={[styles.icon, type !== index && styles.inactive]} />
               </TouchableOpacity>
             )}
           </ScrollView>
           <View>
             <Text style={styles.text}>Título</Text>
-            <TextInput maxLength={25} placeholder="Título da tarefa" style={styles.input} />
+            <TextInput
+              maxLength={25}
+              placeholder="Título da tarefa"
+              style={styles.input}
+              onChangeText={(text) => setTitle(text)}
+            />
             <Text style={styles.text}>Detalhes</Text>
             <TextInput
               maxLength={200}
               placeholder="Detalhes"
               multiline={true}
-              style={styles.details} />
+              style={styles.details}
+              onChangeText={(text) => setDescription(text)}
+            />
           </View>
-          <DateInput type="date" />
-          <DateInput />
+          <DateInput type="date" save={ setDate } />
+          <DateInput save={ setHour } />
           <View style={styles.doneDeleteContainer}>
             <View style={styles.done}>
               <Switch
@@ -56,7 +82,7 @@ export default function Task({ navigation }) {
             </TouchableOpacity>
           </View>
       </ScrollView>
-      <Footer showSave="save" />
+      <Footer showSave="save" saveTask={ saveTask } />
     </KeyboardAvoidingView>
   );
 };

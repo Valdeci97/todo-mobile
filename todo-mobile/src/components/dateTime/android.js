@@ -7,7 +7,7 @@ import styles from './styles';
 import calendar from '../../assets/androidCalendar.png';
 import clock from '../../assets/androidClock.png';
 
-export default function AndroidInput({ type }) {
+export default function AndroidInput({ type, save }) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [show, setShow] = useState(false);
@@ -17,9 +17,11 @@ export default function AndroidInput({ type }) {
     if (type === 'date') {
       setShow(false);
       setDate(format(selectedDate, 'dd/MM/yyyy'));
+      save(format(selectedDate, 'yyyy-MM-dd'));
     } else {
       setShow(false);
       setTime(format(selectedDate, 'HH:mm'));
+      save(format(selectedDate, 'HH:mm:ss.SSS'));
     }
   };
 

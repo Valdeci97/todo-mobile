@@ -21,6 +21,23 @@ const getLateTasks = async () => {
   } catch (err) {
     return { error: err.response.data.error };
   }
-}
+};
 
-export { getTasks, getLateTasks };
+const createTask = async (task) => {
+  try {
+    const { macaddress, type, title, description, date, hour } = task;
+    const when = `${date}T${hour}`;
+    const result = await api.post('/', {
+      macaddress,
+      type,
+      title,
+      description,
+      when,
+    });
+    return result;
+  } catch (err) {
+    return { error: err.response.data.error };
+  }
+};
+
+export { getTasks, getLateTasks, createTask };

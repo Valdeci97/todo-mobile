@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     paddingRight: 15,
+  },
+  inactive: {
+    opacity: 0.4,
   }
 });
 
