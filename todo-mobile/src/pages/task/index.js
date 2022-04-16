@@ -16,12 +16,12 @@ import styles from './styles';
 import typeIcons from '../../utils/typeIcons';
 import DateInput from '../../components/dateTime';
 
-export default function Task() {
+export default function Task({ navigation }) {
   const [done, setDone] = useState(false);
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <Header showBack={true} />
+      <Header showBack={true}  navigation={ navigation } />
         <ScrollView style={{ width: '100%' }}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {typeIcons.map((icon, index) => icon &&

@@ -14,7 +14,7 @@ import { getTasks } from '../../services';
 
 const options = ['Todos', 'Hoje', 'Semana', 'Mês', 'Ano'];
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [isActive, setIsActive] = useState('Todos');
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +54,7 @@ export default function Home() {
           )
         }
       </ScrollView>
-      <Footer showSave={ 'add' } />
+      <Footer showSave={ 'add' } navigation={ navigation } />
     </View>
   );
 };
