@@ -4,11 +4,20 @@ import { format } from 'date-fns';
 
 import styles from './styles';
 import typeIcons from '../../utils/typeIcons';
+import redirect from '../../utils/redirect';
+import { getTaskById } from '../../services';
 
-export default function TaskCard({ type, title, when, done }) {
+export default function TaskCard({ type, title, when, done, navigation, id}) {
+  const sendTaskInfo = async (id) => {
+    redirect(navigation, 'Task', id)
+  }
+
   return (
     <View style={ styles.container }>
-      <TouchableOpacity style={ [styles.card, done && styles.done] }>
+      <TouchableOpacity
+        style={ [styles.card, done && styles.done] }
+        onPress={() => sendTaskInfo(id)}
+      >
         <View style={ styles.leftCard }>
           <Image source={ typeIcons[type] } style={ styles.icon } />
           <Text style={ styles.taskTitle }>{ title }</Text>

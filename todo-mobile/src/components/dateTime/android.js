@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Image, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
@@ -7,11 +7,17 @@ import styles from './styles';
 import calendar from '../../assets/androidCalendar.png';
 import clock from '../../assets/androidClock.png';
 
-export default function AndroidInput({ type, save }) {
+export default function AndroidInput({ type, save, taskDate, taskHour, id }) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [show, setShow] = useState(false);
-  const [mode, setMode] = useState('date'); 
+  const [mode, setMode] = useState('date');
+
+  useEffect(() => {
+    console.log(taskDate);
+    console.log(id, 'id');
+    // verificar o motivo de as propriedades estarem chegando vazias aqui no container.
+  }, []);
 
   const handleChange = (_event, selectedDate) => {
     if (type === 'date') {
@@ -27,11 +33,14 @@ export default function AndroidInput({ type, save }) {
 
   const selectDateOrTime = () => {
     if (type === 'date') {
+      console.log(taskDate);
       setShow(true);
       setMode('date');
+      setDate(taskDate || '');
     } else {
       setShow(true);
       setMode('time');
+      setTime(taskHour || '');
     }
   }
 

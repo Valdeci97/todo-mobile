@@ -1,3 +1,3 @@
-export default function redirect(func, path) {
-  func.navigate(path);
+export default function redirect(func, path, info) {
+  func.navigate(path, { info });
 };

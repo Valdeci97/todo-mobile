@@ -1,13 +1,16 @@
 import axios from 'axios';
 
 import translation from './translation';
+import getDeviceId from '../utils/getDeviceId';
 
 const api = axios.create({ baseURL: 'http://10.0.2.2:3000/task' });
 
 const getTasks = async (filter) => {
   try {
     const info = translation(filter);
-    const { data } = await api.get(`/filter/${info}/11:11:11:11:11:11`);
+    const deviceId = await getDeviceId();
+    const { data } = await api.get(`/filter/${info}/${deviceId}`);
+    console.log(data);
     return data;
   } catch (err) {
     return { error: err.response.data.error };
@@ -16,7 +19,8 @@ const getTasks = async (filter) => {
 
 const getLateTasks = async () => {
   try {
-    const { data } = await api.get('/filter/late/11:11:11:11:11:11');
+    const deviceId = await getDeviceId();
+    const { data } = await api.get(`/filter/late/${deviceId}`);
     return data.length;
   } catch (err) {
     return { error: err.response.data.error };
@@ -25,10 +29,11 @@ const getLateTasks = async () => {
 
 const createTask = async (task) => {
   try {
-    const { macaddress, type, title, description, date, hour } = task;
+    const deviceId = await getDeviceId();
+    const { type, title, description, date, hour } = task;
     const when = `${date}T${hour}`;
     const result = await api.post('/', {
-      macaddress,
+      macaddress: deviceId,
       type,
       title,
       description,
@@ -40,4 +45,15 @@ const createTask = async (task) => {
   }
 };
 
-export { getTasks, getLateTasks, createTask };
+const getTaskById = async (id) => {
+  try {
+    if (!id) return false;
+    const { data } = await api.get(`/${id}`);
+    return data;
+  } catch (err) {
+    return { error: err.response.data.error }
+  }
+
+}
+
+export { getTasks, getLateTasks, createTask, getTaskById };

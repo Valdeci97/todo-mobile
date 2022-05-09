@@ -7,7 +7,7 @@ import styles from './styles';
 import calendar from '../../assets/iosCalendar.png'
 import clock from '../../assets/iosClock.png';
 
-export default function IosInput({ type, save }) {
+export default function IosInput({ type, save, taskDate, taskHour }) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [show, setShow] = useState(false);
@@ -29,9 +29,11 @@ export default function IosInput({ type, save }) {
     if (type === 'date') {
       setShow(true);
       setMode('date');
+      setDate(taskDate || '');
     } else {
       setShow(true);
       setMode('time');
+      setTime(taskHour || '');
     }
   }
 

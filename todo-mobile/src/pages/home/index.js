@@ -50,7 +50,15 @@ export default function Home({ navigation }) {
         {
           isLoading ? <ActivityIndicator size={ 40 } color='#2A5AF2' />
           : tasks.map(({ type, title, when, done, _id }) =>
-            <TaskCard title={ title } done={ done } key={ _id } when={ when } type={ type } />
+            <TaskCard
+              title={ title }
+              done={ done }
+              key={ _id }
+              when={ when }
+              type={ type }
+              navigation={ navigation }
+              id={ _id }
+            />
           )
         }
       </ScrollView>
